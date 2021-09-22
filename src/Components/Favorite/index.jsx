@@ -1,49 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
 
-// import { BrowserRouter as Router, Switch, Link } from 'react-router-dom';
-// https://yts.mx/api/v2/movie_details.json?movie_id=35165
+function Favorite({ setSearchValueInput }) {
+  let dataFromLocalStorage = JSON.parse(localStorage.getItem('favorite-film'));
+  console.log(dataFromLocalStorage);
 
-function Favorite({setSearchValueInput}) {
+  const [array, setArray] = useState([]);
 
-  let dataFromLocalStorage = localStorage.getItem('favorite-film')
-  console.log(dataFromLocalStorage)
-
-
+  useEffect(() => {
+    let promise = [];
+    dataFromLocalStorage.map((id) => {
+      promise.push(
+        fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`).then(
+          (res) => res.json()
+        )
+      );
+    });
+    Promise.all(promise)
+      .then((res) => setArray(res))
+      .catch((err) => console.log(err));
+  }, []);
+  console.log(array);
   return (
-    <section className='page'>
-      {dataFromLocalStorage
-        ? dataFromLocalStorage.map((ele, index) => {
-          
+    <div className="page">
+      <h1>Your in Favorite</h1>
+      {array
+        ? array.map((ele, index) => {
             return (
-              <div className='card'>
-                <a href={ele.url}>
-                  <img src={ele.medium_cover_image} alt="" />
-                </a>
-                <p>{ele.title}</p>
-                <p>
-                summary :{ele.summary}
-                </p>
-                <p>
-                Date Uploaded :{ele.date_uploaded}
-                </p>
-                <p>
-                Type of Film :{ele.genres[0]}
-                </p>
+              <div className="card">
                 <div>
-                  <button onClick={() => addDataLocal(ele.id)}> Add to Favorite</button>
+                  <a href={ele.data.movie.url}>
+                    <img src={ele.data.movie.medium_cover_image} alt="" />
+                  </a>
                 </div>
+                <div></div>
+                <p>{ele.data.movie.title}</p>
+                <p>summary :{ele.data.movie.summary}</p>
+                <p>Date Uploaded :{ele.data.movie.date_uploaded}</p>
+                <p>Type of Film :{ele.data.movie.genres[0]}</p>
               </div>
-            )
+            );
           })
-        : null}
-
-    </section>
+        : 'Loading ...'}
+    </div>
   );
 }
 
 export default Favorite;
-
-
-
-

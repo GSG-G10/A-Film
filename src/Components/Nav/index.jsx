@@ -3,7 +3,6 @@ import './style.css';
 
 import { Link } from 'react-router-dom';
 
-
 function Nav({setSearchValueInput}) {
 
   return (
@@ -11,7 +10,6 @@ function Nav({setSearchValueInput}) {
       <div className='A-Film'>A-Film</div>
       <div className='input'>
         <input type="text" placeholder='Search About Any Film ...' onChange={(e)=>{ 
-          // console.log(e.target.value);
           setSearchValueInput(e.target.value)} }/>
       </div>
       <div className='ul-nav'>
