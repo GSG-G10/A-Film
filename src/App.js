@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React, { useState } from 'react';
 import Nav from './Components/Nav/index.jsx';
 import HomePage from './Components/Home/index.jsx';
@@ -9,20 +9,19 @@ function App() {
   const [searchValue, setSearchValueInput] = useState('');
 
   return (
-    <div className="App">
-
-      <Router>
-        <Favorite />
-      </Router>
-
-
-
-
-
-
+    <Router>
       <Nav setSearchValueInput={setSearchValueInput} />
-      <HomePage searchValue={searchValue} />
-    </div>
+
+      <Switch>
+        <Route exact path="/">
+          <HomePage searchValue={searchValue} />
+        </Route>
+
+        <Route exact path="/favorite">
+          <Favorite />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

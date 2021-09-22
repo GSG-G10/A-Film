@@ -1,14 +1,10 @@
 import React from 'react';
 import './style.css';
 
-import { BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Nav({setSearchValueInput}) {
-
-
-
-
 
   return (
     <nav>
