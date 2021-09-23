@@ -10,11 +10,13 @@ function Favorite({ setSearchValueInput }) {
   useEffect(() => {
     let promise = [];
     dataFromLocalStorage.map((id) => {
-      promise.push(
+
+      return promise.push(
         fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`).then(
           (res) => res.json()
         )
       );
+      
     });
     Promise.all(promise)
       .then((res) => setArray(res))

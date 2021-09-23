@@ -23,12 +23,13 @@ function HomePage({ searchValue }) {
         ? fetchingData.map((ele, index) => {
             return (
               <div className="card">
+                
                 <div>
                   <a href={ele.url}>
                     <img src={ele.medium_cover_image} alt="" />
                   </a>
                 </div>
-                <div></div>
+                <div className='information'>
                 <p>{ele.title}</p>
                 <p>summary :{ele.summary}</p>
                 <p>Date Uploaded :{ele.date_uploaded}</p>
@@ -38,6 +39,7 @@ function HomePage({ searchValue }) {
                     Add to Favorite
                   </button>
                 </div>
+              </div>
               </div>
             );
           })
